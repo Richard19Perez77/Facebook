@@ -106,10 +106,13 @@ html, body {
 .overlay-panel,
 #controlText,
 #scoreText {
-  max-width: min(560px, 92vw);
+  width: min(960px, 88vw);
+  max-width: 88vw;
   max-height: 86vh;
   overflow: auto;
   box-sizing: border-box;
+  text-align: center;
+  margin: 0 auto;
 }
 
 #tutorialDiv.overlay {
@@ -189,25 +192,35 @@ html, body {
   text-align: center;
 }
 
-#draggableControlsTextArea,
-#draggableScoreDiv {
-  height: auto;
-  width: auto;
-  padding: 0;
-  margin: 0;
-  left: auto;
-  right: auto;
-  cursor: default;
-  background: transparent;
+#draggableControlsTextArea.overlay,
+#draggableScoreDiv.overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 16px;
+  margin: 0 !important;
   border: none;
+  background: rgba(0, 0, 0, 0.72);
+  cursor: default;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+#draggableControlsTextArea.overlay.is-open,
+#draggableScoreDiv.overlay.is-open {
+  display: flex !important;
 }
 
 #controlText,
 #scoreText {
   height: auto;
-  width: auto;
-  font-size: 18px;
-  padding: 16px;
+  width: min(960px, 88vw);
+  font-size: 22px;
+  padding: 20px 32px;
+  text-align: center;
 }
 
 @media (max-height: 700px) {
