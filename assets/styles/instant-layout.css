@@ -56,8 +56,6 @@ html, body {
   justify-content: center;
   gap: 4px;
   padding: 6px 4px;
-  position: relative;
-  z-index: 40;
 }
 
 button {
@@ -67,6 +65,8 @@ button {
 button:focus {
   background: #006530;
   color: #ffffff;
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
 }
 
 button:active {
@@ -88,7 +88,7 @@ button:active {
 #activity {
   width: 100%;
   max-width: 900px;
-  font-size: 32px;
+  font-size: 26px;
   line-height: 1.25;
   padding: 6px 8px;
   margin: 4px auto;
@@ -110,7 +110,7 @@ button:active {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 30;
+  z-index: 40;
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.72);
@@ -142,6 +142,7 @@ button:active {
   margin: 0 !important;
   border: none;
   background: rgba(0, 0, 0, 0.72);
+  z-index: 40;
   display: none;
   align-items: center;
   justify-content: center;
@@ -271,7 +272,7 @@ button:active {
 @media (max-height: 560px) {
   #activity {
     height: 72px;
-    font-size: 28px;
+    font-size: 22px;
   }
 
   #musicDiv audio {

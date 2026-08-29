@@ -112,6 +112,16 @@ function focusEndTurnButtonAfterClick() {
     }, 0);
 }
 
+function focusEndGameNewGameButton() {
+    setTimeout(function () {
+        let overlayNewGame = document.getElementById("overlayNewGameButton");
+        if (!overlayNewGame || overlayNewGame.disabled) {
+            return;
+        }
+        overlayNewGame.focus();
+    }, 0);
+}
+
 function toggleOverlay(id) {
     setOverlayOpen(id, !isOverlayOpen(id));
 }
