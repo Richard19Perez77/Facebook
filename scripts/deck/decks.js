@@ -51,7 +51,6 @@ function createCardDeck() {
         let value = i % 13;
         let path = getCardImagePath(suit, value);
         let card = new Card(suit, value, path);
-        card.bitmap.src = card.imagePath;
         Object.freeze(card);
         deckCards[i] = card;
     }

@@ -179,6 +179,9 @@ function setupControls() {
 
     newGameButton = $("#newGameButton")[0];
     newGameButton.addEventListener("click", function () {
+        if (overlayDismissJustHappened()) {
+            return;
+        }
         if (isPlayerTurn() || gameOver) {
             newGameClicked();
         }
@@ -186,6 +189,9 @@ function setupControls() {
 
     endTurnButton = $("#endTurnButton")[0];
     endTurnButton.addEventListener("click", function () {
+        if (overlayDismissJustHappened()) {
+            return;
+        }
         if (gameReady && isPlayerTurn()) {
             endTurnClicked();
         }
@@ -373,6 +379,9 @@ function controlsButtonClicked() {
 }
 
 function scoreButtonClicked() {
+    if (gameOver && isOverlayOpen("draggableScoreDiv")) {
+        return;
+    }
     setOverlayOpen("draggableControlsTextArea", false);
     toggleOverlay("draggableScoreDiv");
 }

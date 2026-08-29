@@ -1,4 +1,10 @@
 function newGameClicked() {
+  if (typeof clearPcTurnTimer === "function") {
+    clearPcTurnTimer();
+  }
+  if (typeof pcTurnQueued !== "undefined") {
+    pcTurnQueued = false;
+  }
 
   totalHighScore = 0;
 

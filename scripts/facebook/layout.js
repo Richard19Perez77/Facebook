@@ -104,9 +104,15 @@ function toggleOverlay(id) {
     setOverlayOpen(id, !isOverlayOpen(id));
 }
 
+let overlayDismissLockUntil = 0;
+
 function closeGameOverlays() {
     setOverlayOpen("draggableControlsTextArea", false);
     setOverlayOpen("draggableScoreDiv", false);
+}
+
+function overlayDismissJustHappened() {
+    return Date.now() < overlayDismissLockUntil;
 }
 
 function bindOverlayClickToDismiss(id) {
@@ -114,7 +120,15 @@ function bindOverlayClickToDismiss(id) {
     if (!el) {
         return;
     }
-    el.addEventListener("click", function () {
-        setOverlayOpen(id, false);
+    el.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (id === "draggableScoreDiv" && typeof gameOver !== "undefined" && gameOver) {
+            return;
+        }
+        overlayDismissLockUntil = Date.now() + 300;
+        setTimeout(function () {
+            setOverlayOpen(id, false);
+        }, 0);
     });
 }
