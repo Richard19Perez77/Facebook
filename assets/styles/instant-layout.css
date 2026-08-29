@@ -223,6 +223,12 @@ html, body {
   text-align: center;
 }
 
+#controlText .control-mouse {
+  font-family: "Segoe UI Emoji", "Segoe UI Symbol", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1.35em;
+  line-height: 1;
+}
+
 @media (max-height: 700px) {
   #activityDiv {
     display: none;

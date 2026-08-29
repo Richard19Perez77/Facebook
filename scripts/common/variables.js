@@ -55,7 +55,8 @@ let endSpan = "</span>";
 let br = "<br>";
 
 let ruleLog = "MOUSE CONTROLS" + br + br;
-ruleLog = ruleLog + spanL1 + "Drag and Drop Cards." + endSpan + br + br;
+ruleLog = ruleLog + spanL1 + "<span class=\"control-mouse\">\u{1F5AF}</span>" + endSpan
+    + spanR1 + "Drag and Drop Cards." + endSpan + br + br;
 
 ruleLog = ruleLog + "KEYBOARD CONTROLS" + br + br;
 
