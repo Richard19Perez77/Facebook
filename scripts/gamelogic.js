@@ -39,12 +39,6 @@ function setupCanvas(document) {
 function setupDivs() {
     loadingDiv = $("#loadingDiv");
     jTutorialDiv = $("#tutorialDiv");
-
-    let pageDivLocal = $(".pageDivClass");
-    pageDivLocal.fadeIn(500, function () {
-        $(this).css("display", "flex");
-        fitBoard();
-    });
 }
 
 // add event listeners to window for keydown and keyup
@@ -398,14 +392,33 @@ function musicButtonClicked() {
 
 let loadingRevealStarted = false;
 
-function revealLoadedBoard() {
-    drawBoard();
-    if (loadingDiv && loadingDiv.is(":visible")) {
+function showBoardAfterScale() {
+    let page = document.getElementById("pageDiv");
+    if (page) {
+        page.classList.add("is-ready");
+        page.style.display = "flex";
+    }
+    if (loadingDiv) {
         loadingDiv.addClass("is-hidden");
     }
+    if (typeof loadDeferredAssets === "function") {
+        loadDeferredAssets();
+    }
+}
+
+function revealLoadedBoard() {
     if (typeof fitBoard === "function") {
         fitBoard();
     }
+    if (typeof drawBoard === "function") {
+        drawBoard();
+    }
+    requestAnimationFrame(function () {
+        if (typeof fitBoard === "function") {
+            fitBoard();
+        }
+        requestAnimationFrame(showBoardAfterScale);
+    });
 }
 
 function checkImagesLoadedCount() {

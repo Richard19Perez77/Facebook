@@ -7,13 +7,18 @@ html, body {
 }
 
 #pageDiv {
-  display: none;
+  display: flex;
+  visibility: hidden;
   flex-direction: column;
   width: 100%;
   height: 100%;
   overflow: hidden;
   text-align: center;
   background-image: radial-gradient(#0062cc, #000000);
+}
+
+#pageDiv.is-ready {
+  visibility: visible;
 }
 
 #titleDiv h1 {
@@ -158,7 +163,8 @@ html, body {
   height: 100% !important;
   margin: 0 !important;
   border: none;
-  background: rgba(0, 0, 0, 0.8);
+  background: #000000;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;

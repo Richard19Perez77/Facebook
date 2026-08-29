@@ -256,19 +256,34 @@ function revealBoardNow() {
     }
     if (typeof instantRevealBoard === "function") {
         instantRevealBoard();
-        loadDeferredAssets();
         return;
+    }
+    if (typeof revealLoadedBoard === "function") {
+        revealLoadedBoard();
+        return;
+    }
+    if (typeof fitBoard === "function") {
+        fitBoard();
     }
     if (typeof drawBoard === "function") {
         drawBoard();
-        if (typeof loadingDiv !== "undefined" && loadingDiv && loadingDiv.addClass) {
-            loadingDiv.addClass("is-hidden");
-        }
+    }
+    requestAnimationFrame(function () {
         if (typeof fitBoard === "function") {
             fitBoard();
         }
-    }
-    loadDeferredAssets();
+        requestAnimationFrame(function () {
+            let page = document.getElementById("pageDiv");
+            if (page) {
+                page.classList.add("is-ready");
+                page.style.display = "flex";
+            }
+            if (typeof loadingDiv !== "undefined" && loadingDiv && loadingDiv.addClass) {
+                loadingDiv.addClass("is-hidden");
+            }
+            loadDeferredAssets();
+        });
+    });
 }
 
 function tryStartInstantGame() {
