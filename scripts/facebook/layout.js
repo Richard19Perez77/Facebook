@@ -108,3 +108,13 @@ function closeGameOverlays() {
     setOverlayOpen("draggableControlsTextArea", false);
     setOverlayOpen("draggableScoreDiv", false);
 }
+
+function bindOverlayClickToDismiss(id) {
+    let el = document.getElementById(id);
+    if (!el) {
+        return;
+    }
+    el.addEventListener("click", function () {
+        setOverlayOpen(id, false);
+    });
+}

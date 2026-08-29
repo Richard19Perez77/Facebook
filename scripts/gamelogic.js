@@ -174,6 +174,9 @@ function setupControls() {
     scoreText = $("#scoreText")[0];
     activityLog = $("#activity")[0];
 
+    bindOverlayClickToDismiss("draggableControlsTextArea");
+    bindOverlayClickToDismiss("draggableScoreDiv");
+
     newGameButton = $("#newGameButton")[0];
     newGameButton.addEventListener("click", function () {
         if (isPlayerTurn() || gameOver) {
