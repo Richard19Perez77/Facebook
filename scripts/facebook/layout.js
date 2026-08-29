@@ -86,6 +86,18 @@ function setOverlayOpen(id, open) {
         return;
     }
     el.classList.toggle("is-open", open);
+    if (open) {
+        el.hidden = false;
+        el.style.display = "";
+        el.style.position = "";
+        el.style.left = "";
+        el.style.top = "";
+        el.style.right = "";
+        el.style.bottom = "";
+        el.style.width = "";
+        el.style.height = "";
+        el.style.margin = "";
+    }
 }
 
 function toggleOverlay(id) {

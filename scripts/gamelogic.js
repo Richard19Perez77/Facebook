@@ -424,7 +424,8 @@ function hideTutorial() {
         return;
     }
     if (jTutorialDiv) {
-        jTutorialDiv.stop(true, true).hide();
+        jTutorialDiv.stop(true, true);
+        jTutorialDiv[0].style.display = "";
     }
     if (tutorialDiv) {
         tutorialDiv.hidden = true;

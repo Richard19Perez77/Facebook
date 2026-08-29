@@ -95,7 +95,7 @@ html, body {
 }
 
 .overlay.is-open {
-  display: flex;
+  display: flex !important;
 }
 
 .overlay-panel,
@@ -107,30 +107,62 @@ html, body {
   box-sizing: border-box;
 }
 
-#tutorialDiv {
-  width: auto;
-  height: auto;
+#tutorialDiv.overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
   border: none;
+  background: rgba(0, 0, 0, 0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 16px;
+}
+
+#tutorialDiv.overlay.is-open {
+  display: flex !important;
+}
+
+.tutorial-frame {
+  width: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  box-sizing: border-box;
+  padding: 8px;
   margin: 0;
-  left: auto;
-  right: auto;
+  background-color: #003413;
+  border: 10px double #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
 }
 
 #tutorialImage {
-  max-width: 92vw;
-  max-height: 86vh;
-  object-fit: contain;
-}
-
-#loadingDiv {
-  display: flex;
+  display: block;
   width: auto;
   height: auto;
+  max-width: calc(90vw - 36px);
+  max-height: calc(90vh - 36px);
+  object-fit: contain;
+  object-position: center;
+}
+
+#loadingDiv.overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
   border: none;
-  margin: 0;
-  left: auto;
-  right: auto;
   background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 #loadingDiv.is-hidden {
@@ -138,9 +170,17 @@ html, body {
 }
 
 #loading {
-  position: static;
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
   height: auto;
   margin: 0;
+  width: auto;
+  color: #ff0000;
+  font-size: 40px;
+  text-align: center;
 }
 
 #draggableControlsTextArea,
