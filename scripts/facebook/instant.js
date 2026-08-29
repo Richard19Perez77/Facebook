@@ -13,6 +13,8 @@ let instantBoardRevealed = false;
 let instantStartTimer = null;
 let musicWasPlaying = false;
 let musicPolicyHooked = false;
+let musicAudioContext = null;
+let musicMediaSource = null;
 
 const INSTANT_SDK_TIMEOUT_MS = 8000;
 const INSTANT_ASSETS_TIMEOUT_MS = 8000;
@@ -97,6 +99,30 @@ function isMusicMuted() {
     return audio.muted || audio.volume === 0;
 }
 
+function isInstantGamesSession() {
+    return instantSdkReady === true || shouldUseInstantSdk();
+}
+
+function attachMusicToWebAudio() {
+    let audio = getMusicElement();
+    if (!audio || musicMediaSource) {
+        return;
+    }
+    let AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) {
+        return;
+    }
+    try {
+        if (!musicAudioContext) {
+            musicAudioContext = new AudioCtx();
+        }
+        musicMediaSource = musicAudioContext.createMediaElementSource(audio);
+        musicMediaSource.connect(musicAudioContext.destination);
+    } catch (e) {
+        musicMediaSource = null;
+    }
+}
+
 function setupMusicPolicy() {
     let audio = getMusicElement();
     if (!audio || musicPolicyHooked) {
@@ -105,8 +131,13 @@ function setupMusicPolicy() {
     musicPolicyHooked = true;
 
     audio.addEventListener("play", function () {
-        if (gamePaused || document.hidden) {
+        if (gamePaused && isInstantGamesSession()) {
             audio.pause();
+            return;
+        }
+        attachMusicToWebAudio();
+        if (musicAudioContext && musicAudioContext.state === "suspended") {
+            musicAudioContext.resume().catch(function () { });
         }
     });
 }
@@ -124,8 +155,11 @@ function pauseMusicForLifecycle() {
 
 function resumeMusicAfterLifecycle() {
     let audio = getMusicElement();
-    if (!audio || gamePaused || document.hidden || isMusicMuted()) {
+    if (!audio || isMusicMuted()) {
         return;
+    }
+    if (musicAudioContext && musicAudioContext.state === "suspended") {
+        musicAudioContext.resume().catch(function () { });
     }
     if (musicWasPlaying) {
         let playPromise = audio.play();
@@ -163,12 +197,14 @@ function hidePauseOverlay() {
     }
 }
 
-function pauseInstantGame(showOverlay) {
+function pauseInstantGame(showOverlay, pauseMusic) {
     gamePaused = true;
     if (typeof pausePcTurnTimer === "function") {
         pausePcTurnTimer();
     }
-    pauseMusicForLifecycle();
+    if (pauseMusic) {
+        pauseMusicForLifecycle();
+    }
     if (showOverlay) {
         showPauseOverlay();
     }
@@ -456,7 +492,7 @@ function startTeamPoker(doc) {
         }
         if (typeof FBInstant.onPause === "function") {
             FBInstant.onPause(function () {
-                pauseInstantGame(true);
+                pauseInstantGame(true, true);
             });
         }
         reportInstantProgress();
@@ -471,7 +507,7 @@ function startTeamPoker(doc) {
 
 document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
-        pauseInstantGame(false);
+        pauseInstantGame(false, isInstantGamesSession());
     } else {
         resumeInstantGame();
     }
