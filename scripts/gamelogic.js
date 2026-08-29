@@ -178,6 +178,16 @@ function setupControls() {
     bindOverlayClickToDismiss("draggableScoreDiv");
 
     newGameButton = $("#newGameButton")[0];
+    let overlayNewGameButton = document.getElementById("overlayNewGameButton");
+    if (overlayNewGameButton) {
+        overlayNewGameButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (gameOver) {
+                newGameClicked();
+            }
+        });
+    }
     newGameButton.addEventListener("click", function () {
         if (overlayDismissJustHappened()) {
             return;

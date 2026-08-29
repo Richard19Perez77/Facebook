@@ -21,7 +21,9 @@ function runPcMoveAfterDelay() {
   endTurnButton.disabled = false;
   endTurnClicked();
 
-  document.getElementById("endTurnButton").focus();
+  if (!gameOver) {
+    document.getElementById("endTurnButton").focus();
+  }
 }
 
 function schedulePcTurn() {

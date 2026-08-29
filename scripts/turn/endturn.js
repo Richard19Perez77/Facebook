@@ -72,8 +72,9 @@ function endTurnClicked() {
                     newGameClicked();
                 }
             } else {
-                if (!isOverlayOpen("draggableScoreDiv")) {
-                    setOverlayOpen("draggableScoreDiv", true);
+                setOverlayOpen("draggableScoreDiv", true);
+                if (typeof focusEndGameNewGameButton === "function") {
+                    focusEndGameNewGameButton();
                 }
             }
 

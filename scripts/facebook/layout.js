@@ -86,6 +86,9 @@ function setOverlayOpen(id, open) {
         return;
     }
     el.classList.toggle("is-open", open);
+    if (id === "draggableScoreDiv") {
+        el.classList.toggle("is-end-game", open && typeof gameOver !== "undefined" && gameOver);
+    }
     if (open) {
         el.hidden = false;
         el.style.display = "";
@@ -98,6 +101,14 @@ function setOverlayOpen(id, open) {
         el.style.height = "";
         el.style.margin = "";
     }
+}
+
+function focusEndGameNewGameButton() {
+    let overlayNewGame = document.getElementById("overlayNewGameButton");
+    if (!overlayNewGame) {
+        return;
+    }
+    overlayNewGame.focus();
 }
 
 function toggleOverlay(id) {
@@ -123,6 +134,9 @@ function bindOverlayClickToDismiss(id) {
     el.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
+        if (e.target && e.target.closest && e.target.closest("#overlayNewGameButton")) {
+            return;
+        }
         if (id === "draggableScoreDiv" && typeof gameOver !== "undefined" && gameOver) {
             return;
         }
