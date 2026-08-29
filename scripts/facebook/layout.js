@@ -103,12 +103,13 @@ function setOverlayOpen(id, open) {
     }
 }
 
-function focusEndGameNewGameButton() {
-    let overlayNewGame = document.getElementById("overlayNewGameButton");
-    if (!overlayNewGame) {
-        return;
-    }
-    overlayNewGame.focus();
+function focusEndTurnButtonAfterClick() {
+    setTimeout(function () {
+        if (typeof endTurnButton === "undefined" || !endTurnButton || endTurnButton.disabled) {
+            return;
+        }
+        endTurnButton.focus();
+    }, 0);
 }
 
 function toggleOverlay(id) {

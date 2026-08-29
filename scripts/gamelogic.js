@@ -473,5 +473,8 @@ function hideTutorial() {
     if (typeof drawBoard === "function") {
         drawBoard();
     }
+    if (typeof focusEndTurnButtonAfterClick === "function") {
+        focusEndTurnButtonAfterClick();
+    }
 }
 

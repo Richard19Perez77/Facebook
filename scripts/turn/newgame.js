@@ -11,8 +11,6 @@ function newGameClicked() {
   valueArr4k.clear();
   suitArr4k.clear();
 
-  $("#endTurnButton").focus();
-
   endTurnButton.disabled = false;
 
   if (isOverlayOpen("draggableControlsTextArea")) {
@@ -105,4 +103,8 @@ function newGameClicked() {
   }
 
   drawBoard();
+
+  if (isPlayerTurn() && typeof focusEndTurnButtonAfterClick === "function") {
+    focusEndTurnButtonAfterClick();
+  }
 }
