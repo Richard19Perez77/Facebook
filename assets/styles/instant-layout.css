@@ -30,7 +30,7 @@ html, body {
 }
 
 #boardStage {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
   display: flex;
   align-items: center;
@@ -82,27 +82,44 @@ button:active {
 }
 
 #activityDiv {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
+  min-height: 96px;
+  display: flex;
+  width: 100%;
 }
 
 #activity {
+  flex: 1 1 auto;
   width: 100%;
   max-width: 900px;
   font-size: 26px;
   line-height: 1.25;
   padding: 6px 8px;
   margin: 4px auto;
-  height: 96px;
+  height: auto;
+  min-height: 0;
   box-sizing: border-box;
 }
 
 #musicDiv {
   flex: 0 0 auto;
-  padding: 8px 8px 4px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 0 4px;
 }
 
-#musicDiv audio {
-  max-width: 42vw;
+#musicDiv audio,
+#audio {
+  display: inline-block;
+  flex: 0 0 300px;
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   height: 32px;
 }
 
@@ -271,11 +288,11 @@ button:active {
 
 @media (max-height: 560px) {
   #activity {
-    height: 72px;
     font-size: 22px;
   }
 
-  #musicDiv audio {
+  #musicDiv audio,
+  #audio {
     height: 28px;
   }
 }

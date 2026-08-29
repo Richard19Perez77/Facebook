@@ -1,5 +1,6 @@
 const BOARD_WIDTH = 950;
 const BOARD_HEIGHT = 580;
+const LOG_MIN_HEIGHT = 96;
 
 let boardScale = 1;
 let touchInputActive = false;
@@ -37,17 +38,21 @@ function eventToBoardCoords(event) {
 function fitBoard() {
     let stage = document.getElementById("boardStage");
     let canvasEl = document.getElementById("canvasId");
-    if (!stage || !canvasEl) {
+    let page = document.getElementById("pageDiv");
+    if (!stage || !canvasEl || !page) {
         return;
     }
 
+    let titleH = (document.getElementById("titleDiv") || {}).offsetHeight || 0;
+    let buttonH = (document.getElementById("buttonDiv") || {}).offsetHeight || 0;
+    let musicH = (document.getElementById("musicDiv") || {}).offsetHeight || 0;
     let stageW = stage.clientWidth;
-    let stageH = stage.clientHeight;
-    if (stageW < 1 || stageH < 1) {
+    let availableH = page.clientHeight - titleH - buttonH - musicH - LOG_MIN_HEIGHT;
+    if (stageW < 1 || availableH < 1) {
         return;
     }
 
-    let scale = Math.min(stageW / BOARD_WIDTH, stageH / BOARD_HEIGHT);
+    let scale = Math.min(stageW / BOARD_WIDTH, availableH / BOARD_HEIGHT);
     if (scale <= 0) {
         return;
     }
