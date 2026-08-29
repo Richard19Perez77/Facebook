@@ -207,11 +207,6 @@ function setupControls() {
         }
     });
 
-    musicButton = $("#musicButton")[0];
-    musicButton.addEventListener("click", function () {
-        musicButtonClicked();
-    });
-
     scoreButton = $("#scoreButton");
     scoreButton[0].addEventListener("click", function () {
         if (gameReady && isPlayerTurn()) {

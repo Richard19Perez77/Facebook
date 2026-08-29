@@ -111,16 +111,19 @@ button:active {
   width: 100%;
   box-sizing: border-box;
   padding: 8px 0 4px;
+  overflow: visible;
+  position: relative;
+  z-index: 5;
 }
 
 #musicDiv audio,
 #audio {
-  display: inline-block;
-  flex: 0 0 300px;
+  display: block;
+  flex: 0 0 auto;
   width: 300px;
-  min-width: 300px;
-  max-width: 300px;
-  height: 32px;
+  max-width: 100%;
+  height: auto;
+  min-height: 40px;
 }
 
 .overlay {
@@ -289,10 +292,5 @@ button:active {
 @media (max-height: 560px) {
   #activity {
     font-size: 22px;
-  }
-
-  #musicDiv audio,
-  #audio {
-    height: 28px;
   }
 }

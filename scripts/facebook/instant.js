@@ -11,7 +11,6 @@ let instantFontReady = false;
 let instantRevealBoard = null;
 let instantBoardRevealed = false;
 let instantStartTimer = null;
-let musicAudioContext = null;
 let musicWasPlaying = false;
 let musicPolicyHooked = false;
 
@@ -105,28 +104,8 @@ function setupMusicPolicy() {
     }
     musicPolicyHooked = true;
 
-    let AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-        try {
-            musicAudioContext = new AudioCtx();
-            let source = musicAudioContext.createMediaElementSource(audio);
-            source.connect(musicAudioContext.destination);
-        } catch (e) {
-            musicAudioContext = null;
-        }
-    }
-
-    audio.addEventListener("volumechange", function () {
-        if (isMusicMuted()) {
-            pauseMusicForLifecycle();
-        }
-    });
-
     audio.addEventListener("play", function () {
-        if (musicAudioContext && musicAudioContext.state === "suspended") {
-            musicAudioContext.resume().catch(function () { });
-        }
-        if (gamePaused || document.hidden || isMusicMuted()) {
+        if (gamePaused || document.hidden) {
             audio.pause();
         }
     });
@@ -147,9 +126,6 @@ function resumeMusicAfterLifecycle() {
     let audio = getMusicElement();
     if (!audio || gamePaused || document.hidden || isMusicMuted()) {
         return;
-    }
-    if (musicAudioContext && musicAudioContext.state === "suspended") {
-        musicAudioContext.resume().catch(function () { });
     }
     if (musicWasPlaying) {
         let playPromise = audio.play();

@@ -88,7 +88,6 @@ let canvas;
 let newGameButton;
 let controlsButton;
 let endTurnButton;
-let musicButton;
 let blogButton;
 let scoreButton;
 let activityLog;
