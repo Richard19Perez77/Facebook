@@ -2,6 +2,10 @@
 
 Isolated from `JS_team_poker`. Edit only this folder.
 
+<p>
+<img src="docs/screenshot.png" width="220" alt="Team Poker board with labeled tutorial overlay" />
+</p>
+
 ## Local check
 
 Open `index.html` in a browser (Chrome). You should see:
